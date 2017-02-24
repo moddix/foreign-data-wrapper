@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+
+  web:
+    image: moddix/php:7.1-alpine-fpm
+    volumes: [".:/var/www/html"]
+    command: "php -S 0.0.0.0:8000 -t ./public"
+    ports: ["80:8000"]
+
+  db:
+    image: moddix/postgres
+    volumes: ["db:/var/lib/postgresql/data"]
+    environment:
+      POSTGRES_DATABASE: moddix
+      POSTGRES_USER: moddix
+      POSTGRES_PASSWORD: moddix
+
+volumes:
+  db:
+    driver: local
